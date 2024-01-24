@@ -1,3 +1,4 @@
+import { MapAreas } from "react-img-mapper";
 import { Channel } from "./channels";
 
 export type Ambiance = {
@@ -8,3 +9,9 @@ export type Ambiance = {
   channel?: Channel;
   livestream?: boolean;
 };
+
+export type MapDetails = {
+  img: string
+  name: string
+  areas: Array<MapAreas>
+}
