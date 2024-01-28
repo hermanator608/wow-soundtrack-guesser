@@ -15,7 +15,7 @@ import { worldOfWarcraft } from "./config";
 
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject, azeroth } from "./config/map-details";
-import { MapDetails } from "./config/types";
+import { MapDetails, stackInterface } from "./config/types";
 
 const Flexy = styled("div")`
   display: flex;
@@ -26,12 +26,13 @@ const Flexy = styled("div")`
 function App(props: any) {
   const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
+  //TODO: Update state to use the stack 
   const [world, setWorld] = useState<MapDetails>(AllWorlds);
+  const [hoverArea, setHoverArea] = useState<String>();
 
   const onQuestionSelect = (selectedIndex: number) => {
     if (selectedIndex === currentQuestion.answer) {
       alert("Correct!");
-      //
       setVideoShown(true);
 
       setTimeout(() => {
@@ -58,6 +59,14 @@ function App(props: any) {
     setWorld(newMap);
   }
 
+  const enterArea = (area: MapAreas) => {
+    setHoverArea(area.id);
+  }
+
+  const leaveArea = () => {
+    setHoverArea("");
+  }
+
   // Update state to be a Stack of map details, allowing backwards forever
   const back = () => {
     setWorld(AllWorlds);
@@ -69,28 +78,30 @@ function App(props: any) {
     width: 900,
     height: 600,
     onClick: area => evaluate(area),
+    onMouseEnter: area => enterArea(area),
+    onMouseLeave: area => leaveArea()
   }
 
   return (
     <div className="App">
       <Header />
 
-      <div>
+      <div className="photo">
         <ImageMapper {...imageMapperProps} />
       </div>
 
+      <h2>You: {hoverArea}</h2>
+
       <div id="MainContainer">
-        <YoutubePlayer />
         <Button onClick={() => { back(); }} variant="contained" startIcon={<ReplayIcon />}>Go Back</Button>
       </div>
-
-
 
     </div>
   );
 }
 
 export default App;
+//<YoutubePlayer />
 
 /*<div className="App">
   <Header />
