@@ -63,7 +63,7 @@ const ReactPlayerContainer = styled('div')<{ hidden: boolean }>`
 `;
 
 const VolumeSlider = styled(Slider)`
-  color: white;
+  color: black;
   width: 100%;
   margin-top: 0;
 

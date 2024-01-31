@@ -15,7 +15,7 @@ import { worldOfWarcraft } from "./config";
 
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject, azeroth } from "./config/map-details";
-import { MapDetails, stackInterface } from "./config/types";
+import { MapDetails, stackInterface, Stack } from "./config/types";
 
 const Flexy = styled("div")`
   display: flex;
@@ -26,11 +26,10 @@ const Flexy = styled("div")`
 function App(props: any) {
   const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
-  //TODO: Update state to use the stack 
-  const [world, setWorld] = useState<MapDetails>(AllWorlds);
+  const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
 
-  const onQuestionSelect = (selectedIndex: number) => {
+  /*const onQuestionSelect = (selectedIndex: number) => {
     if (selectedIndex === currentQuestion.answer) {
       alert("Correct!");
       setVideoShown(true);
@@ -42,9 +41,25 @@ function App(props: any) {
     } else {
       alert("Wrong, try again!");
     }
-  };
+  };*/
 
-  const evaluate = (area: MapAreas) => {
+  let imageMapperProps: ImageMapperProps = {
+    src: world.peek().img,
+    map: world.peek(),
+    width: 900,
+    height: 600,
+    onClick: area => addMap(area),
+    onMouseEnter: area => enterArea(area),
+    onMouseLeave: area => leaveArea()
+  }
+
+  const removeMap = () => {
+    let newStack = Stack.clone(world.getData());
+    newStack.pop();
+    setWorld(newStack);
+  }
+
+  const addMap = (area: MapAreas) => {
     console.log("You clicked: " + area.id);
     if (!area.id) {
       alert("Bug - id not defined")
@@ -56,7 +71,10 @@ function App(props: any) {
       alert("Bug - map not defined for " + area.id);
       return;
     }
-    setWorld(newMap);
+    
+    let newStack = Stack.clone(world.getData());
+    newStack.push(newMap);
+    setWorld(newStack);
   }
 
   const enterArea = (area: MapAreas) => {
@@ -65,21 +83,6 @@ function App(props: any) {
 
   const leaveArea = () => {
     setHoverArea("");
-  }
-
-  // Update state to be a Stack of map details, allowing backwards forever
-  const back = () => {
-    setWorld(AllWorlds);
-  }
-
-  let imageMapperProps: ImageMapperProps = {
-    src: world.img,
-    map: world,
-    width: 900,
-    height: 600,
-    onClick: area => evaluate(area),
-    onMouseEnter: area => enterArea(area),
-    onMouseLeave: area => leaveArea()
   }
 
   return (
@@ -92,8 +95,10 @@ function App(props: any) {
 
       <h2>You: {hoverArea}</h2>
 
+      <YoutubePlayer />
+
       <div id="MainContainer">
-        <Button onClick={() => { back(); }} variant="contained" startIcon={<ReplayIcon />}>Go Back</Button>
+        <Button onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Go Back</Button>
       </div>
 
     </div>
@@ -101,7 +106,7 @@ function App(props: any) {
 }
 
 export default App;
-//<YoutubePlayer />
+
 
 /*<div className="App">
   <Header />

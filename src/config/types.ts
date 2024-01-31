@@ -23,15 +23,20 @@ export interface stackInterface<MapDetails> {
   isEmpty(): boolean,
   isFull(): boolean,
   size(): number,
-  printStack(): void
+  printStack(): void,
+  getData(): Array<MapDetails>
 }
 
-class StackClass<MapDetails> implements stackInterface<MapDetails> {
+export class Stack<MapDetails> implements stackInterface<MapDetails> {
   private data: Array<MapDetails> = [];
   private stackSize: number = 0;
 
-  constructor(size: number) {
+  constructor(size: number, map?: MapDetails) {
     this.stackSize = size; //max size, how many maps deep can we go on the tree
+  
+    if (map != undefined) {
+      this.data.push(map);
+    }
   }
 
   push(item: MapDetails): void {
@@ -45,10 +50,12 @@ class StackClass<MapDetails> implements stackInterface<MapDetails> {
     return this.data.pop();
   } 
 
-  peek(): MapDetails | null {
+  peek(): MapDetails {
+    
     return this.data[this.data.length - 1]
+  
   }
-
+    
   isEmpty(): boolean {
       return this.data.length <= 0;
   }
@@ -67,5 +74,17 @@ class StackClass<MapDetails> implements stackInterface<MapDetails> {
       })
   }
 
+  getData(){
+    return this.data;
+  }
+
+  static clone = <MapDetails>(data: MapDetails[]): Stack<MapDetails> => {
+
+    const clonedStack = new Stack<MapDetails>(5);
+    data.forEach((item) => clonedStack.push(item));
+
+    return clonedStack;
+
+  }
 
 }
