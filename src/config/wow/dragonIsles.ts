@@ -38,7 +38,7 @@ export const dragonIsles = [
     channel: channels.Everness,
   },
   {
-    name: 'Azure Span',
+    name: 'The Azure Span',
     code: 'EcJFmUaXT3g',
     group: 'Dragon Isles',
     channel: channels.Everness,

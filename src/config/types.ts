@@ -34,7 +34,7 @@ export class Stack<MapDetails> implements stackInterface<MapDetails> {
   constructor(size: number, map?: MapDetails) {
     this.stackSize = size; //max size, how many maps deep can we go on the tree
   
-    if (map != undefined) {
+    if (map !== undefined) {
       this.data.push(map);
     }
   }

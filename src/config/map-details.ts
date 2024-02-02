@@ -41,7 +41,7 @@ export const brokenIsles: MapDetails = {
   areas: [
     { id: "Argus", shape: "circle", coords: [790, 100, 110], preFillColor: "transparent", fillColor: "blue" },
     { id: "Highmountain", shape: "circle", coords: [420, 120, 50], preFillColor: "transparent", fillColor: "blue" },
-    { id: "Val'Sharah", shape: "circle", coords: [310, 200, 50], preFillColor: "transparent", fillColor: "blue" },
+    { id: "Val'sharah", shape: "circle", coords: [310, 200, 50], preFillColor: "transparent", fillColor: "blue" },
     { id: "Stormheim", shape: "circle", coords: [530, 210, 50], preFillColor: "transparent", fillColor: "blue" },
     { id: "Suramar", shape: "circle", coords: [425, 290, 50], preFillColor: "transparent", fillColor: "blue" },
     { id: "Azsuna", shape: "circle", coords: [310, 340, 50], preFillColor: "transparent", fillColor: "blue" },
@@ -74,6 +74,7 @@ export const dragonIsles: MapDetails = {
     { id: "Zaralek Cavern", shape: "circle", coords: [800, 500, 90], preFillColor: "transparent", fillColor: "blue" },
   ]
 }
+
 //TO DO: add 100 map areas
 export const easternKingdoms: MapDetails = {
   name: "Eastern Kingdoms",
@@ -112,7 +113,6 @@ export const IdToMapObject: { [key: string]: MapDetails } = {
   "Eastern Kingdoms": easternKingdoms,
   "Kalimdor": kalimdor,
   "Kul Tiras": kulTiras
-
 
 
 }

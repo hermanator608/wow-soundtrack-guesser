@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import "../App.css";
+import React, { useMemo, useRef, useState } from 'react';
 import ReactPlayer, {
   YouTubePlayerProps as ReactPlayerYouTubeProps,
 } from 'react-player/youtube';
@@ -6,11 +7,10 @@ import { ReactPlayerProps } from 'react-player';
 import { Slider, SliderProps, css } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // import { FlexColumn } from '../globalStyles';
-import { Icon } from './Icon';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
 import debounce from 'lodash.debounce';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   currentQuestionState,
   videoShownState,
@@ -150,7 +150,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
 
   const reactPlayerRef = useRef<ReactPlayer>(null);
 
-  soundtrackIndex = currentQuestion.answer
+  soundtrackIndex = currentQuestion.answerIndex
   const currentAmbiance = worldOfWarcraft[soundtrackIndex];
 
 
@@ -260,7 +260,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
           />
         </MediaContainerBase>
         <MediaContainerBase>
-          <span style={{ color: 'white', fontSize: '20px' }}>
+          <span style={{ color: 'black', fontSize: '20px' }}>
             {!!currentTime &&
               new Date(currentTime * 1000).toISOString().substr(11, 8)}{' '}
             / {!!totalTime && new Date(totalTime * 1000).toISOString().substr(11, 8)}
@@ -275,8 +275,8 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
             playing={isPlaying}
             url={url}
             style={reactPlayerStyle}
-            width="100vw"
-            height="200vw"
+            width='900px'
+            height='600px'
             volume={volume}
             config={{
               playerVars: {

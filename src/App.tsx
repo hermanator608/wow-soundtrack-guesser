@@ -16,6 +16,7 @@ import { worldOfWarcraft } from "./config";
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject, azeroth } from "./config/map-details";
 import { MapDetails, stackInterface, Stack } from "./config/types";
+import { truncate } from "fs";
 
 const Flexy = styled("div")`
   display: flex;
@@ -28,20 +29,6 @@ function App(props: any) {
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
   const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
-
-  /*const onQuestionSelect = (selectedIndex: number) => {
-    if (selectedIndex === currentQuestion.answer) {
-      alert("Correct!");
-      setVideoShown(true);
-
-      setTimeout(() => {
-        setVideoShown(false);
-        setCurrentQuestion(getNextQuestion());
-      }, 5000);
-    } else {
-      alert("Wrong, try again!");
-    }
-  };*/
 
   let imageMapperProps: ImageMapperProps = {
     src: world.peek().img,
@@ -60,7 +47,6 @@ function App(props: any) {
   }
 
   const addMap = (area: MapAreas) => {
-    console.log("You clicked: " + area.id);
     if (!area.id) {
       alert("Bug - id not defined")
       return;
@@ -68,13 +54,32 @@ function App(props: any) {
 
     const newMap = IdToMapObject[area.id];
     if (!newMap) {
-      alert("Bug - map not defined for " + area.id);
-      return;
+      evaluateChoice(area.id);
+    } else {
+      let newStack = Stack.clone(world.getData());
+      newStack.push(newMap);
+      setWorld(newStack);
     }
     
-    let newStack = Stack.clone(world.getData());
-    newStack.push(newMap);
-    setWorld(newStack);
+  }
+
+  const evaluateChoice = (choice: string) => {
+
+    if (choice === currentQuestion.answerName) {
+      setWorld(new Stack<MapDetails>(5, AllWorlds));
+      alert("Correct!")
+
+      setVideoShown(true);
+
+      setTimeout(() => {
+        setVideoShown(false);
+        setCurrentQuestion(getNextQuestion());
+      }, 5000);
+      
+    } else {
+      alert("incorrect!")
+    }
+    
   }
 
   const enterArea = (area: MapAreas) => {
@@ -89,16 +94,17 @@ function App(props: any) {
     <div className="App">
       <Header />
 
-      <div className="photo">
+      {(videoShown === true)
+      ?<></>
+      :<div className="photo">
         <ImageMapper {...imageMapperProps} />
       </div>
-
-      <h2>You: {hoverArea}</h2>
-
-      <YoutubePlayer />
+      }
 
       <div id="MainContainer">
-        <Button onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Go Back</Button>
+        <h2>You: {hoverArea}</h2>
+        <YoutubePlayer />
+        <Button onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Back One Map</Button>
       </div>
 
     </div>
