@@ -1,5 +1,5 @@
 .App {
-  /* text-align: center; */
+  text-align: center;
 }
 
 .App-logo {
@@ -52,4 +52,22 @@
   overflow: hidden;
   padding: 30px;
   padding-bottom: calc(30px + env(safe-area-inset-bottom));
+}
+
+.map-area {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.presenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 9999;
+}
+
+.photo {
+  position: relative;
 }

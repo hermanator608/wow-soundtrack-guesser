@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
 import "./App.css";
-import BackgroundImage from "./components/BackgroundImage";
 import { YoutubePlayer } from "./components/YoutubePlayer";
 import { useRecoilState } from "recoil";
 import {
@@ -11,12 +10,9 @@ import {
 } from "./state";
 import { Button, Card, CardActionArea, CardContent, Grid, Typography, styled } from "@mui/material";
 import ReplayIcon from '@mui/icons-material/Replay';
-import { worldOfWarcraft } from "./config";
-
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
-import { AllWorlds, IdToMapObject, azeroth } from "./config/map-details";
-import { MapDetails, stackInterface, Stack } from "./config/types";
-import { truncate } from "fs";
+import { AllWorlds, IdToMapObject } from "./config/map-details";
+import { MapDetails, Stack } from "./config/types";
 
 const Flexy = styled("div")`
   display: flex;
@@ -29,6 +25,8 @@ function App(props: any) {
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
   const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
+  const [result, setResult] = useState<Boolean>();
+  const [score, setScore] = useState<number>(0);
 
   let imageMapperProps: ImageMapperProps = {
     src: world.peek().img,
@@ -37,7 +35,7 @@ function App(props: any) {
     height: 600,
     onClick: area => addMap(area),
     onMouseEnter: area => enterArea(area),
-    onMouseLeave: area => leaveArea()
+    onMouseLeave: area => leaveArea(),
   }
 
   const removeMap = () => {
@@ -64,21 +62,22 @@ function App(props: any) {
   }
 
   const evaluateChoice = (choice: string) => {
+    setWorld(new Stack<MapDetails>(5, AllWorlds));
+    setVideoShown(true);
 
-    if (choice === currentQuestion.answerName) {
-      setWorld(new Stack<MapDetails>(5, AllWorlds));
-      alert("Correct!")
-
-      setVideoShown(true);
-
-      setTimeout(() => {
+    setTimeout(() => {
         setVideoShown(false);
         setCurrentQuestion(getNextQuestion());
-      }, 5000);
-      
-    } else {
-      alert("incorrect!")
-    }
+    }, 7000);
+
+    displayFeedback(choice === currentQuestion.answerName);
+  }
+
+  const displayFeedback = (result: Boolean) => {
+    setResult(result);
+    
+    if (result) setScore(score + 1);
+    // if (score === 5) //TODO: End Game
     
   }
 
@@ -95,13 +94,19 @@ function App(props: any) {
       <Header />
 
       {(videoShown === true)
-      ?<></>
-      :<div className="photo">
-        <ImageMapper {...imageMapperProps} />
+      ? result===true
+        ?<h3>Correct!</h3>
+        :<h3>Incorrect!</h3>
+      :<div className="map-area">
+        <div className="presenter">
+          <div className="photo">
+            <ImageMapper {...imageMapperProps} />
+          </div>
+        </div>
       </div>
       }
 
-      <div id="MainContainer">
+      <div >
         <h2>You: {hoverArea}</h2>
         <YoutubePlayer />
         <Button onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Back One Map</Button>
