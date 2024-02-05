@@ -20,6 +20,7 @@ const Flexy = styled("div")`
   justify-content: space-between;
 `;
 
+
 function App(props: any) {
   const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
@@ -28,16 +29,17 @@ function App(props: any) {
   const [result, setResult] = useState<Boolean>();
   const [score, setScore] = useState<number>(0);
 
-  let imageMapperProps: ImageMapperProps = {
-    src: world.peek().img,
-    map: world.peek(),
-    width: 900,
-    height: 600,
-    onClick: area => addMap(area),
-    onMouseEnter: area => enterArea(area),
-    onMouseLeave: area => leaveArea(),
-  }
+   let imageMapperProps: ImageMapperProps = {
+     src: world.peek().img,
+     map: world.peek(),
+     width: 900,
+     height: 600,
+     onClick: area => addMap(area),
+     onMouseEnter: area => enterArea(area),
+     onMouseLeave: area => leaveArea(),
+   }
 
+  //TODO: Disable 'Back one Map' button when user makes selection
   const removeMap = () => {
     let newStack = Stack.clone(world.getData());
     newStack.pop();
@@ -62,20 +64,23 @@ function App(props: any) {
   }
 
   const evaluateChoice = (choice: string) => {
+    
     setWorld(new Stack<MapDetails>(5, AllWorlds));
     setVideoShown(true);
+    displayFeedback(choice === currentQuestion.answerName);
 
     setTimeout(() => {
+        setResult(undefined);
         setVideoShown(false);
+        setHoverArea("");
         setCurrentQuestion(getNextQuestion());
-    }, 7000);
-
-    displayFeedback(choice === currentQuestion.answerName);
+    }, 10000);
+    
   }
 
   const displayFeedback = (result: Boolean) => {
-    setResult(result);
     
+    setResult(result);
     if (result) setScore(score + 1);
     // if (score === 5) //TODO: End Game
     
@@ -101,15 +106,31 @@ function App(props: any) {
         <div className="presenter">
           <div className="photo">
             <ImageMapper {...imageMapperProps} />
+            <Typography
+              variant="h6"
+              className="you-text"             
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'white',
+                textDecoration: 'none',
+              }} 
+            >
+            {hoverArea}
+            </Typography>
           </div>
         </div>
       </div>
       }
 
-      <div >
-        <h2>You: {hoverArea}</h2>
-        <YoutubePlayer />
-        <Button onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Back One Map</Button>
+      <YoutubePlayer />
+
+      <div className="map-controls">
+        <Button className="back-button" disabled={!!videoShown} onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Back One Map</Button>
+        
       </div>
 
     </div>

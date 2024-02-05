@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
@@ -37,22 +38,22 @@
   }
 }
 
-#MainContainer {
+/* #MainContainer {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   position: fixed;
-  /* top: 0;
+   top: 0;
   left: 0;
   right: 0;
-  bottom: 0; */
+  bottom: 0; 
   animation: crtAnimation 1.2s 0.2s both;
   animation-timing-function: cubic-bezier(0.2, -0.1, 0, 1);
   overflow: hidden;
   padding: 30px;
   padding-bottom: calc(30px + env(safe-area-inset-bottom));
-}
+} */
 
 .map-area {
   display: flex;
@@ -70,4 +71,35 @@
 
 .photo {
   position: relative;
+}
+
+.photo:hover{
+  cursor: pointer;
+}
+
+.map-controls{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 9999;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+
+.back-button{
+  position: relative;
+}
+
+.you-text{
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  text-align: center;
+  z-index: 1;
+}
+
+.youtube-control-button:hover{
+  cursor: pointer;
 }
