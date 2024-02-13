@@ -39,7 +39,6 @@ function App(props: any) {
      onMouseLeave: area => leaveArea(),
    }
 
-  //TODO: Disable 'Back one Map' button when user makes selection
   const removeMap = () => {
     let newStack = Stack.clone(world.getData());
     newStack.pop();
@@ -54,13 +53,18 @@ function App(props: any) {
 
     const newMap = IdToMapObject[area.id];
     if (!newMap) {
+      confirmChoice(area.id);
       evaluateChoice(area.id);
     } else {
       let newStack = Stack.clone(world.getData());
       newStack.push(newMap);
       setWorld(newStack);
     }
-    
+  }
+
+  //TODO: Change from alert to something else
+  const confirmChoice = (choice: string) => {
+    alert("Is " + choice + " your final answer?")
   }
 
   const evaluateChoice = (choice: string) => {
@@ -75,11 +79,10 @@ function App(props: any) {
         setHoverArea("");
         setCurrentQuestion(getNextQuestion());
     }, 10000);
-    
+  
   }
 
   const displayFeedback = (result: Boolean) => {
-    
     setResult(result);
     if (result) setScore(score + 1);
     // if (score === 5) //TODO: End Game
@@ -129,10 +132,16 @@ function App(props: any) {
       <YoutubePlayer />
 
       <div className="map-controls">
-        <Button className="back-button" disabled={!!videoShown} onClick={() => { removeMap(); }} variant="contained" startIcon={<ReplayIcon />}>Back One Map</Button>
-        
+        <Button 
+          className="back-button" 
+          disabled={!!videoShown || world.peek() == AllWorlds} 
+          onClick={() => { removeMap(); }} 
+          variant="contained" 
+          startIcon={<ReplayIcon />}
+        >
+        Back One Map
+        </Button>
       </div>
-
     </div>
   );
 }

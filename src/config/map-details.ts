@@ -11,6 +11,7 @@ import northrendImg from "../images/northrend.png"
 import pandariaImg from "../images/pandaria.png"
 import zandalarImg from "../images/zandalar.png"
 
+//ALL WORLDS / DEFAULT START MAP
 export const AllWorlds: MapDetails = {
   name: "AllWorlds",
   img: AllWorldsImg,
@@ -22,6 +23,7 @@ export const AllWorlds: MapDetails = {
   ]
 };
 
+//START AZEROTH AND IT'S ZONES
 export const azeroth: MapDetails = {
   name: "Azeroth",
   img: AzerothImg,
@@ -37,6 +39,53 @@ export const azeroth: MapDetails = {
     { id: "The Dragon Isles", shape: "circle", coords: [695, 135, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 }
   ]
 };
+
+export const northrend: MapDetails = {
+  name: "Northrend",
+  img: northrendImg,
+  areas: [
+    { id: "Icecrown", shape: "circle", coords: [360, 180, 50], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Storm Peaks", shape: "circle", coords: [530, 150, 60], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Crystalsong", shape: "circle", coords: [470, 255, 30], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Wintergrasp", shape: "circle", coords: [325, 300, 30], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Zul'drak", shape: "circle", coords: [615, 260, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Grizzly Hills", shape: "circle", coords: [600, 360, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Howling Fjord", shape: "circle", coords: [700, 480, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Dragonblight", shape: "circle", coords: [450, 345, 50], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Sholazar Basin", shape: "circle", coords: [230, 260, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Borean Tundra", shape: "circle", coords: [220, 380, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Caldera?", shape: "circle", coords: [130, 350, 30], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+  ]
+}
+//TODO
+export const kalimdor: MapDetails = {
+  name: "Kalimdor",
+  img: kalimdorImg,
+  areas: [
+  ]
+}
+//TODO
+export const easternKingdoms: MapDetails = {
+  name: "Eastern Kingdoms",
+  img: easternKingdomsImg,
+  areas: [
+  ]
+}
+
+export const dragonIsles: MapDetails = {
+  name: "The Dragon Isles",
+  img: dragonIslesImg,
+  areas: [
+    { id: "The Forbidden Reach", shape: "circle", coords: [590, 65, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "The Waking Shores", shape: "circle", coords: [440, 210, 60], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Thaldraszus", shape: "circle", coords: [580, 290, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "The Azure Span", shape: "circle", coords: [480, 460, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Ohn'ahran Plains", shape: "circle", coords: [400, 330, 50], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "The Emerald Dream", shape: "circle", coords: [280, 335, 15], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Amirdrassil", shape: "circle", coords: [160, 390, 20], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Zaralek Cavern", shape: "circle", coords: [800, 500, 90], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+  ]
+}
 
 export const brokenIsles: MapDetails = {
   name: "brokenIsles",
@@ -63,38 +112,6 @@ export const maelstrom: MapDetails = {
   ]
 }
 
-export const dragonIsles: MapDetails = {
-  name: "The Dragon Isles",
-  img: dragonIslesImg,
-  areas: [
-    { id: "The Forbidden Reach", shape: "circle", coords: [590, 65, 40], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "The Waking Shores", shape: "circle", coords: [440, 210, 60], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "Thaldraszus", shape: "circle", coords: [580, 290, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "The Azure Span", shape: "circle", coords: [480, 460, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "Ohn'ahran Plains", shape: "circle", coords: [400, 330, 50], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "The Emerald Dream", shape: "circle", coords: [280, 335, 15], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "Amirdrassil", shape: "circle", coords: [160, 390, 20], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-    { id: "Zaralek Cavern", shape: "circle", coords: [800, 500, 90], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
-  ]
-}
-
-//TO DO: add 100 map areas
-export const easternKingdoms: MapDetails = {
-  name: "Eastern Kingdoms",
-  img: easternKingdomsImg,
-  areas: [
-  
-  ]
-}
-
-export const kalimdor: MapDetails = {
-  name: "Kalimdor",
-  img: kalimdorImg,
-  areas: [
-  
-  ]
-}
-
 export const kulTiras: MapDetails = {
   name: "Kul Tiras",
   img: kulTirasImg,
@@ -106,6 +123,17 @@ export const kulTiras: MapDetails = {
     { id: "Tiragarde Sound", shape: "circle", coords: [570, 450, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
   ]
 }
+
+export const zandalar: MapDetails = {
+  name: "Zandalar",
+  img: zandalarImg,
+  areas: [
+    { id: "Zuldazar", shape: "circle", coords: [500, 350, 90], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Nazmir", shape: "circle", coords: [520, 180, 60], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Vol'dun", shape: "circle", coords: [340, 180, 70], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+    { id: "Nazjatar", shape: "circle", coords: [780, 100, 50], preFillColor: "transparent", fillColor: "transparent", strokeColor: "#eab54d4d", lineWidth:10 },
+  ]
+} 
 
 export const pandaria: MapDetails = {
   name: "Pandaria",
@@ -125,6 +153,17 @@ export const pandaria: MapDetails = {
 }
 
 
+//START SHADOWLANDS AND IT'S ZONES
+
+
+//START OUTLAND AND IT'S ZONES
+
+
+//START DRAENOR AND IT'S ZONES
+
+
+//END ALL MAPS AND ZONES
+
 export const IdToMapObject: { [key: string]: MapDetails } = {
   "Azeroth": azeroth,
   "The Broken Isles": brokenIsles,
@@ -134,6 +173,6 @@ export const IdToMapObject: { [key: string]: MapDetails } = {
   "Kalimdor": kalimdor,
   "Kul Tiras": kulTiras,
   "Pandaria": pandaria,
-
-
+  "Zandalar": zandalar,
+  "Northrend": northrend,
 }
