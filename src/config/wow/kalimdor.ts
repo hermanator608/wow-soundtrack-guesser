@@ -14,7 +14,7 @@ export const kalimdor = [
     channel: channels.Everness
   },
   {
-    name: 'Darkshore (Vanilla)',
+    name: 'Darkshore',
     code: 'taBfw0am3iE',
     group: 'Kalimdor',
     channel: channels.Meisio
@@ -26,31 +26,31 @@ export const kalimdor = [
     channel: channels.Meisio
   },
   {
-    name: 'Darkshore (BFA)',
+    name: 'Darkshore',
     code: 'mC85RfCyja4',
     group: 'Kalimdor',
     channel: channels.Meisio
   },
   {
-    name: 'Stonetalon Mountains (Vanilla)',
+    name: 'Stonetalon Mountains',
     code: 'Jd1rlP36gv8',
     group: 'Kalimdor',
     channel: channels.Meisio
   },
   {
-    name: 'Desolace (Vanilla)',
+    name: 'Desolace',
     code: 'agf2NHPHn0I',
     group: 'Kalimdor',
     channel: channels.Meisio
   },
   {
-    name: 'Dustwallow Marsh (Vanilla)',
+    name: 'Dustwallow Marsh',
     code: '6zeq6g2riyY',
     group: 'Kalimdor',
     channel: channels.Meisio
   },
   {
-    name: 'Thousand Needles (Vanilla)',
+    name: 'Thousand Needles',
     code: 'eEl8QGmrWQg',
     group: 'Kalimdor',
     channel: channels.Meisio
@@ -62,7 +62,7 @@ export const kalimdor = [
     channel: channels.Meisio
   },
   {
-    name: 'Tanaris and Zul\'Farrak',
+    name: 'Tanaris',
     code: 'ydrfcDTLS0Y',
     group: 'Kalimdor',
     channel: channels.Everness
@@ -134,7 +134,7 @@ export const kalimdor = [
     channel: channels.Everness
   },
   {
-    name: 'Exodar',
+    name: 'The Exodar',
     code: 'pXseyytvgkg',
     group: 'Kalimdor',
     channel: channels.Everness
@@ -146,31 +146,19 @@ export const kalimdor = [
     channel: channels.Everness
   },
   {
-    name: 'Skywall',
-    code: 'Ph45OfLPQME',
-    group: 'Kalimdor',
-    channel: channels.Everness
-  },
-  {
-    name: 'Firelands',
-    code: 'kCoQV-xKenk',
-    group: 'Kalimdor',
-    channel: channels.Everness
-  },
-  {
     name: 'Mount Hyjal',
     code: 'n-QVmQJx93A',
     group: 'Kalimdor',
     channel: channels.Meisio
   },
   {
-    name: 'Durotar and the Echo Isles',
+    name: 'Durotar',
     code: 'ejqUoPoyUg8',
     group: 'Kalimdor',
     channel: channels.Everness
   },
   {
-    name: 'Azshara (Vanilla)',
+    name: 'Azshara',
     code: 'YN5cSe9cSC4',
     group: 'Kalimdor',
     channel: channels.Everness

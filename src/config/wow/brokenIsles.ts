@@ -37,10 +37,5 @@ export const brokenIsles = [
     group: 'Broken Isles',
     channel: channels.Everness
   },
-  {
-    name: 'Emerald Nightmare',
-    code: 'Mtnt1lrXjhw',
-    group: 'Broken Isles',
-    channel: channels.Everness
-  }
+
 ]

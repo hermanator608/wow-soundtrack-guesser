@@ -19,10 +19,5 @@ export const argus = [
     group: 'Argus',
     channel: channels.Meisio,
   },
-  {
-    name: 'Azeroth From Argus',
-    code: '2wnIbpNMH-c',
-    group: 'Argus',
-    channel: channels.Meisio,
-  },
+
 ]

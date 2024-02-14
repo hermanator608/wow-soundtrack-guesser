@@ -8,7 +8,7 @@ export const kulTiras = [
     channel: channels.Everness
   },
   {
-    name: 'Mechagon Island',
+    name: 'Mechagon',
     code: 'yMkbKZWDkqg',
     group: 'Kul Tiras',
     channel: channels.Everness

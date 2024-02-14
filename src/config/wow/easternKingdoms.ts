@@ -26,13 +26,13 @@ export const easternKingdoms = [
     channel: channels.Everness
   },
   {
-    name: 'Loch Modan (Vanilla)',
+    name: 'Loch Modan',
     code: 'McmcgXM53c4',
     group: 'Eastern Kingdoms',
     channel: channels.Everness
   },
   {
-    name: 'Tirisfal Glades (Rain/Vanlla)',
+    name: 'Tirisfal Glades',
     code: 'b02OhyWNZv8',
     group: 'Eastern Kingdoms',
     channel: channels.Meisio
@@ -50,31 +50,31 @@ export const easternKingdoms = [
     channel: channels.Meisio
   },
   {
-    name: 'Sunwell Plateau',
+    name: 'Isle of Quel\'Danas',
     code: 'BBaNoOsKaEM',
     group: 'Eastern Kingdoms',
     channel: channels.Everness
   },
   {
-    name: 'Hillsbrad Foothills (Vanilla)',
+    name: 'Hillsbrad Foothills',
     code: 'bSz_18RVXbI',
     group: 'Eastern Kingdoms',
     channel: channels.Meisio
   },
   {
-    name: 'Wetlands (Vanilla)',
+    name: 'Wetlands',
     code: 'Z_j8l1a1oQU',
     group: 'Eastern Kingdoms',
     channel: channels.Meisio
   },
   {
-    name: 'Arathi Highlands (BFA)',
+    name: 'Arathi Highlands',
     code: 'rFek5w7tDI0',
     group: 'Eastern Kingdoms',
     channel: channels.Everness,
   },
   {
-    name: 'The Hinterlands (Vanilla)',
+    name: 'The Hinterlands',
     code: '2Or4ULews7o',
     group: 'Eastern Kingdoms',
     channel: channels.Meisio
@@ -104,7 +104,7 @@ export const easternKingdoms = [
     channel: channels.Everness
   },
   {
-    name: 'Badlands (Vanilla)',
+    name: 'Badlands',
     code: 'bWr3nnslZGw',
     group: 'Eastern Kingdoms',
     channel: channels.Everness
@@ -182,12 +182,6 @@ export const easternKingdoms = [
     channel: channels.Everness
   },
   {
-    name: 'Karazhan',
-    code: 'jrYxp3OuB1s',
-    group: 'Eastern Kingdoms',
-    channel: channels.Everness
-  },
-  {
     name: 'Vashj\'ir',
     code: '7SC9bX3BeGI',
     group: 'Eastern Kingdoms',
@@ -199,16 +193,5 @@ export const easternKingdoms = [
     group: 'Eastern Kingdoms',
     channel: channels.Meisio
   },
-  {
-    name: 'Zul\'Aman',
-    code: '3VmF7pIuzMU',
-    group: 'Eastern Kingdoms',
-    channel: channels.Everness
-  },
-  {
-    name: 'Gnomeregan',
-    code: 'z6AAolBpPNE',
-    group: 'Eastern Kingdoms',
-    channel: channels.Meisio
-  }
+
 ]
