@@ -1,22 +1,19 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import ReactPlayer, {
   YouTubePlayerProps as ReactPlayerYouTubeProps,
 } from 'react-player/youtube';
 import { ReactPlayerProps } from 'react-player';
 import { Slider, SliderProps, css } from '@mui/material';
 import { styled } from '@mui/material/styles';
-// import { FlexColumn } from '../globalStyles';
-import { Icon } from './Icon';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
 import debounce from 'lodash.debounce';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   currentQuestionState,
   videoShownState,
 } from '../state';
 import { worldOfWarcraft } from '../config';
-// import { Pause } from './Pause';
 
 const reactPlayerStyle: ReactPlayerProps['style'] = {
   pointerEvents: 'none',
@@ -126,21 +123,13 @@ const MediaControlContainer = styled(MediaContainerBase)`
   } */
 `;
 
-const CenteredDiv = styled('div')`
-  display: flex;
-  align-items: center;
-`;
-
-const MarginDiv = styled('div')`
-  margin-right: 12px;
-`;
 
 export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   soundtrackIndex
 }) => {
   // Global State
-  const [videoShown, setVideoShown] = useRecoilState(videoShownState);
-  const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
+  const [videoShown] = useRecoilState(videoShownState);
+  const [currentQuestion] = useRecoilState(currentQuestionState);
 
   // Local State
   const [isPlaying, setIsPlaying] = useState(true);
@@ -153,24 +142,6 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   soundtrackIndex = currentQuestion.answer
   const currentAmbiance = worldOfWarcraft[soundtrackIndex];
 
-
-  // Handlers
-  // const handleShuffle = useCallback(() => {
-  //   const randomAbianceIndex = 10; // getRandomAmbianceIndex(ambiances, currentAmbianceIndex);
-  //   setCurrentAmbianceIndex(randomAbianceIndex);
-  // }, [currentAmbianceIndex, setCurrentAmbianceIndex, ambiances]);
-
-  // const handleSkip = () => {
-  //   setCurrentAmbianceIndex((currentAmbianceIndex + 1) % ambiances.length);
-  // };
-
-  // const handleBack = () => {
-  //   if (currentAmbianceIndex === 0) {
-  //     setCurrentAmbianceIndex(ambiances.length - 1);
-  //   } else {
-  //     setCurrentAmbianceIndex(currentAmbianceIndex - 1);
-  //   }
-  // };
 
   const handleRestart = () => {
     reactPlayerRef.current?.seekTo(currentAmbiance.startTimeS || 1, 'seconds');
@@ -218,14 +189,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
               onClick: () => setIsPlaying(!isPlaying),
             })}
           />
-          {/* <Button
-            icon=""
-            tooltip="Shuffle"
-            onClick={logEventClickWrapper({
-              eventData: { ...logData, actionId: 'shuffle' },
-              onClick: handleShuffle,
-            })}
-          /> */}
+
           {!currentAmbiance.livestream && (
             <>
               <Button
@@ -267,7 +231,6 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
           </span>
         </MediaContainerBase>
       </>
-      {/* <Pause isPlaying={isPlaying} setIsPlaying={setIsPlaying} /> */}
       <ReactPlayerContainer hidden={!videoShown}>
         <InnerContainer>
           <ReactPlayer
@@ -288,14 +251,10 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
               },
             }}
             playsinline={true}
-            // onReady={handleOnReady}
             // onError={} // TODO: Implement Error Handling
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
-            // onBuffer={() => setIsBuffering(true)}
-            // onBufferEnd={() => setIsBuffering(false)}
             onStart={handleStarted}
-            // onEnded={handleShuffle}
             onProgress={handleOnProgress}
             ref={reactPlayerRef}
           />
@@ -305,4 +264,3 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   );
 };
 
-// TODO: Hide controls after a certain amount of time? Come back after mouse move
