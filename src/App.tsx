@@ -8,17 +8,12 @@ import {
   getNextQuestion,
   videoShownState
 } from "./state";
-import { Button, Card, CardActionArea, CardContent, Grid, Typography, styled } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import ReplayIcon from '@mui/icons-material/Replay';
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject } from "./config/map-details";
 import { MapDetails, Stack } from "./config/types";
 
-const Flexy = styled("div")`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
 
 function App(props: any) {
@@ -34,9 +29,9 @@ function App(props: any) {
      map: world.peek(),
      width: 900,
      height: 600,
-     onClick: area => addMap(area),
-     onMouseEnter: area => enterArea(area),
-     onMouseLeave: area => leaveArea(),
+     onClick: (area: any) => addMap(area),
+     onMouseEnter: (area: any) => enterArea(area),
+     onMouseLeave: () => leaveArea(),
    }
 
   const removeMap = () => {

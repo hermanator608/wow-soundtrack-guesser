@@ -19,7 +19,6 @@ import {
   videoShownState,
 } from '../state';
 import { worldOfWarcraft } from '../config';
-// import { Pause } from './Pause';
 
 const reactPlayerStyle: ReactPlayerProps['style'] = {
   pointerEvents: 'none',
@@ -132,21 +131,13 @@ const MediaControlContainer = styled(MediaContainerBase)`
 
 `;
 
-const CenteredDiv = styled('div')`
-  display: flex;
-  align-items: center;
-`;
-
-const MarginDiv = styled('div')`
-  margin-right: 12px;
-`;
 
 export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   soundtrackIndex
 }) => {
   // Global State
-  const [videoShown, setVideoShown] = useRecoilState(videoShownState);
-  const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
+  const [videoShown] = useRecoilState(videoShownState);
+  const [currentQuestion] = useRecoilState(currentQuestionState);
 
   // Local State
   const [isPlaying, setIsPlaying] = useState(true);
@@ -293,4 +284,3 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   );
 };
 
-// TODO: Hide controls after a certain amount of time? Come back after mouse move
