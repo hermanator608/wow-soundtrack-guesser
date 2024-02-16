@@ -128,7 +128,7 @@ function App(props: any) {
       <div className="map-controls">
         <Button 
           className="back-button" 
-          disabled={!!videoShown || world.peek() == AllWorlds} 
+          disabled={!!videoShown || world.peek() === AllWorlds} 
           onClick={() => { removeMap(); }} 
           variant="contained" 
           startIcon={<ReplayIcon />}
