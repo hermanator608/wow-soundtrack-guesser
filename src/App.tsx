@@ -15,7 +15,6 @@ import { AllWorlds, IdToMapObject } from "./config/map-details";
 import { MapDetails, Stack } from "./config/types";
 
 
-
 function App(props: any) {
   const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
@@ -143,30 +142,4 @@ function App(props: any) {
 
 export default App;
 
-
-/*<div className="App">
-  <Header />
-  <BackgroundImage imageUrl="./wow-map-min.jpg" />
-  <Grid container spacing={3} justifyContent="center" alignItems="center">
-    {currentQuestion.options.map((q, i) => (
-      <Grid item xs={12}>
-      <Card sx={{ minWidth: 275 }}>
-        <CardActionArea onClick={() => onQuestionSelect(q)}>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Option #{i+1}
-          </Typography>
-          <Typography variant="h5" component="div">
-            {worldOfWarcraft[q]?.name}
-          </Typography>
-        </CardContent>
-        </CardActionArea>
-      </Card>
-      </Grid>
-    ))}
-  </Grid>
-  <div id="MainContainer">
-    <YoutubePlayer />
-  </div>
-</div>*/
 

@@ -1,18 +1,13 @@
 import "../App.css";
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactPlayer, {
   YouTubePlayerProps as ReactPlayerYouTubeProps,
 } from 'react-player/youtube';
 import { ReactPlayerProps } from 'react-player';
-import { Slider, SliderProps, css } from '@mui/material';
-import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import { css } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Box from "@mui/material/Box";
-// import { FlexColumn } from '../globalStyles';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
-import debounce from 'lodash.debounce';
 import { useRecoilState } from 'recoil';
 import {
   currentQuestionState,
@@ -64,42 +59,13 @@ const ReactPlayerContainer = styled('div')<{ hidden: boolean }>`
   }
 `;
 
-const VolumeSlider = styled(Slider)`
-  color: black;
-  width: 100%;
-  margin-top: 0;
-
-  @media (min-width: 500px) {
-    width: 400px;
-    margin-top: 12px;
-  }
-
-  h1 {
-    filter: none;
-  }
-`;
-
 const InnerContainer = styled('div')`
   ${commonStyles}
   overflow: hidden;
-  //display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
 
-  // @media (min-aspect-ratio: 16/9) {
-  //   height: 300%;
-  //   top: -100%;
-  // }
-  // @media (max-aspect-ratio: 16/9) {
-  //   width: 300%;
-  //   left: -100%;
-  // }
-
-  // @media (max-width: 500px) {
-  //   width: 400%;
-  //   left: -150%;
-  // }
 `;
 
 const MediaContainerBase = styled('div')`
@@ -128,6 +94,7 @@ const MediaControlContainer = styled(MediaContainerBase)`
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 10px;
 
 `;
 
@@ -141,15 +108,12 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
 
   // Local State
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(1);
   const [totalTime, setTotalTime] = useState<number | undefined>(0);
   const [currentTime, setCurrentTime] = useState<number | undefined>(0);
-
   const reactPlayerRef = useRef<ReactPlayer>(null);
 
   soundtrackIndex = currentQuestion.answerIndex
   const currentAmbiance = worldOfWarcraft[soundtrackIndex];
-
 
   const handleRestart = () => {
     reactPlayerRef.current?.seekTo(currentAmbiance.startTimeS || 1, 'seconds');
@@ -165,16 +129,6 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
     reactPlayerRef.current?.seekTo(nextTime, 'seconds');
   };
 
-  const debounceVolumeHandler = useMemo(() => {
-    const handleVolume: NonNullable<SliderProps['onChange']> = (_event, value) => {
-      const newVolume = Array.isArray(value) ? value[0] : value;
-      console.log(newVolume);
-      setVolume(newVolume);
-    };
-
-    return debounce(handleVolume, 100);
-  }, [setVolume]);
-
   const handleOnProgress: ReactPlayerYouTubeProps['onProgress'] = (data: any) => {
     setCurrentTime(data.playedSeconds);
   };
@@ -187,99 +141,78 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
 
   return (
     <>
-      <>
-        <ReactPlayerContainer hidden={!videoShown}>
-          <InnerContainer>
-            <ReactPlayer
-              controls={false}
-              playing={isPlaying}
-              url={url}
-              style={reactPlayerStyle}
-              width='900'
-              height='600'
-              volume={volume}
-              config={{
-                playerVars: {
-                  modestbranding: true,
-                  color: 'black',
-                  onUnstarted: () => {
-                    console.error('Failed to auto-start');
-                  },
+      <ReactPlayerContainer hidden={!videoShown}>
+        <InnerContainer>
+          <ReactPlayer
+            controls={false}
+            playing={isPlaying}
+            url={url}
+            style={reactPlayerStyle}
+            width='900'
+            height='600'
+            config={{
+              playerVars: {
+                modestbranding: true,
+                color: 'black',
+                onUnstarted: () => {
+                  console.error('Failed to auto-start');
                 },
-              }}
-              playsinline={true}
-              // onReady={handleOnReady}
-              // onError={} // TODO: Implement Error Handling
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-              // onBuffer={() => setIsBuffering(true)}
-              // onBufferEnd={() => setIsBuffering(false)}
-              onStart={handleStarted}
-              // onEnded={handleShuffle}
-              onProgress={handleOnProgress}
-              ref={reactPlayerRef}
-            />
-          </InnerContainer>
-        </ReactPlayerContainer>
-        <MediaControlContainer>
-          <Button
-            className="youtube-control-button"
-            icon={isPlaying ? 'pause' : 'play'}
-            tooltip={isPlaying ? 'pause' : 'play'}
-            onClick={logEventClickWrapper({
-              eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
-              onClick: () => setIsPlaying(!isPlaying),
-            })}
+              },
+            }}
+            playsinline={true}
+            // onError={} // TODO: Implement Error Handling
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onStart={handleStarted}
+            onProgress={handleOnProgress}
+            ref={reactPlayerRef}
           />
-          {!currentAmbiance.livestream && (
-            <>
-              <Button
-                className="youtube-control-button"
-                icon="fastForward"
-                tooltip="Fast Forward 10m"
-                onClick={logEventClickWrapper({
-                  eventData: { ...logData, actionId: 'fastForward' },
-                  onClick: handleFastForward,
-                })}
-              />
-              <Button
-                className="youtube-control-button"
-                icon="restart"
-                tooltip="Restart"
-                onClick={logEventClickWrapper({
-                  eventData: { ...logData, actionId: 'restart' },
-                  onClick: handleRestart,
-                })}
-              />
-            </>
-          )}
+        </InnerContainer>
+      </ReactPlayerContainer>
 
-          <MediaContainerBase>
-            <span style={{ color: 'black', fontSize: '20px' }}>
-              {!!currentTime &&
-                new Date(currentTime * 1000).toISOString().substr(11, 8)}{' '}
-              / {!!totalTime && new Date(totalTime * 1000).toISOString().substr(11, 8)}
-            </span>
-          </MediaContainerBase>
-          <Box sx={{ paddingLeft:2, width: 200 }}>
-            <MediaContainerBase>
-              <VolumeMuteIcon fontSize="large"></VolumeMuteIcon>
-              <VolumeSlider
-                defaultValue={1}
-                aria-label="Volume"
-                onChange={debounceVolumeHandler}
-                valueLabelDisplay="off"
-                step={0.1}
-                marks
-                min={0}
-                max={1}
-              />
-            </MediaContainerBase>
-          </Box>
+      <MediaControlContainer>
+        <Button
+          className="youtube-control-button"
+          icon={isPlaying ? 'pause' : 'play'}
+          tooltip={isPlaying ? 'pause' : 'play'}
+          onClick={logEventClickWrapper({
+            eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
+            onClick: () => setIsPlaying(!isPlaying),
+          })}
+        />
+        {!currentAmbiance.livestream && (
+          <>
+            <Button
+              className="youtube-control-button"
+              icon="fastForward"
+              tooltip="Fast Forward 10m"
+              onClick={logEventClickWrapper({
+                eventData: { ...logData, actionId: 'fastForward' },
+                onClick: handleFastForward,
+              })}
+            />
+            <Button
+              className="youtube-control-button"
+              icon="restart"
+              tooltip="Restart"
+              onClick={logEventClickWrapper({
+                eventData: { ...logData, actionId: 'restart' },
+                onClick: handleRestart,
+              })}
+            />
+          </>
+        )}
 
-        </MediaControlContainer>
+        <MediaContainerBase>
+          <span style={{ color: 'black', fontSize: '20px' }}>
+            {!!currentTime &&
+              new Date(currentTime * 1000).toISOString().substr(11, 8)}{' '}
+            / {!!totalTime && new Date(totalTime * 1000).toISOString().substr(11, 8)}
+          </span>
+        </MediaContainerBase>
 
-      </>
+      </MediaControlContainer>
+
     </>
   );
 };
