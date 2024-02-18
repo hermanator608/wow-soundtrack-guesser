@@ -8,20 +8,20 @@ import {
   getNextQuestion,
   videoShownState
 } from "./state";
-import { Button, Typography } from "@mui/material";
-import ReplayIcon from '@mui/icons-material/Replay';
+import { Typography } from "@mui/material";
+import UndoIcon from '@mui/icons-material/Undo';
+import IconButton from '@mui/material/IconButton';
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject } from "./config/map-details";
 import { MapDetails, Stack } from "./config/types";
 
 
-function App(props: any) {
+function App() {
   const [currentQuestion, setCurrentQuestion] = useRecoilState(currentQuestionState);
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
   const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
   const [result, setResult] = useState<Boolean>();
-  const [score, setScore] = useState<number>(0);
 
    let imageMapperProps: ImageMapperProps = {
      src: world.peek().img,
@@ -78,9 +78,6 @@ function App(props: any) {
 
   const displayFeedback = (result: Boolean) => {
     setResult(result);
-    if (result) setScore(score + 1);
-    // if (score === 5) //TODO: End Game
-    
   }
 
   const enterArea = (area: MapAreas) => {
@@ -103,6 +100,16 @@ function App(props: any) {
         <div className="presenter">
           <div className="photo">
             <ImageMapper {...imageMapperProps} />
+            <IconButton 
+              className="back-button"
+              size="medium" 
+              sx={{position:"absolute", backgroundColor: "white"}}
+              disabled={!!videoShown || world.peek() === AllWorlds} 
+              onClick={() => { removeMap(); }} 
+            > 
+            <UndoIcon />
+            </IconButton>
+
             <Typography
               variant="h6"
               className="you-text"             
@@ -125,17 +132,6 @@ function App(props: any) {
 
       <YoutubePlayer />
 
-      <div className="map-controls">
-        <Button 
-          className="back-button" 
-          disabled={!!videoShown || world.peek() === AllWorlds} 
-          onClick={() => { removeMap(); }} 
-          variant="contained" 
-          startIcon={<ReplayIcon />}
-        >
-        Back One Map
-        </Button>
-      </div>
     </div>
   );
 }
