@@ -41,7 +41,7 @@ function App() {
 
   const addMap = (area: MapAreas) => {
     if (!area.id) {
-      alert("Bug - id not defined")
+      console.log("Map Area Error: " + area + "\nID not defined.");
       return;
     }
 
