@@ -8,12 +8,13 @@ import {
   getNextQuestion,
   videoShownState
 } from "./state";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import UndoIcon from '@mui/icons-material/Undo';
 import IconButton from '@mui/material/IconButton';
 import ImageMapper, { ImageMapperProps, MapAreas } from 'react-img-mapper';
 import { AllWorlds, IdToMapObject } from "./config/map-details";
-import { MapDetails, Stack } from "./config/types";
+import { MapDetails } from "./config/types";
+import { Stack } from "./utils/MapStack";
 
 
 function App() {

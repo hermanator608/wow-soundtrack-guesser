@@ -32,29 +32,4 @@ export const miscellaneous = [
     channel: channels.Meisio,
   },
 
-  // Gameplay
-  {
-    name: 'Azuremyst Isle',
-    code: 'PmWAbDdP4mY',
-    group: 'Gameplay',
-    channel: channels.Meisio,
-  },
-  {
-    name: 'Elwynn Forest',
-    code: 'UURb7kXLz0A',
-    group: 'Gameplay',
-    channel: channels.Meisio,
-  },
-  {
-    name: 'Dun Morogh',
-    code: 'TG5U-tlRLWw',
-    group: 'Gameplay',
-    channel: channels.Meisio,
-  },
-  {
-    name: 'Mulgore',
-    code: 'hJba3NVLtz8',
-    group: 'Gameplay',
-    channel: channels.Meisio,
-  },
 ];
