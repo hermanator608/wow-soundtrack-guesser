@@ -14,7 +14,7 @@ export const pandaria = [
     channel: channels.Everness
   },
   {
-    name: 'Jade Forest',
+    name: 'The Jade Forest',
     code: 'nWcbYcU1eaQ',
     group: 'Pandaria',
     channel: channels.Everness

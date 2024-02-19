@@ -1,12 +1,7 @@
 import { channels } from '../channels';
 
 export const dragonIsles = [
-  {
-    name: 'Dragon Isles',
-    code: '22_w4hP0S1I',
-    group: 'Dragon Isles',
-    channel: channels.Everness,
-  },
+
   {
     name: 'The Forbidden Reach',
     code: 'n21druQJ6Rk',
@@ -38,7 +33,7 @@ export const dragonIsles = [
     channel: channels.Everness,
   },
   {
-    name: 'Azure Span',
+    name: 'The Azure Span',
     code: 'EcJFmUaXT3g',
     group: 'Dragon Isles',
     channel: channels.Everness,

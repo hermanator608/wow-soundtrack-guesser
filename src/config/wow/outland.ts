@@ -32,7 +32,7 @@ export const outland = [
     channel: channels.Everness,
   },
   {
-    name: 'Terokkar Forest and Shattrath City',
+    name: 'Terokkar Forest',
     code: 'e15tpUhTMD8',
     group: 'Outland',
     channel: channels.Everness,
@@ -49,10 +49,5 @@ export const outland = [
     group: 'Outland',
     channel: channels.Everness,
   },
-  {
-    name: 'Black Temple',
-    code: 'n3MCruu35Og',
-    group: 'Outland',
-    channel: channels.Everness,
-  },
+
 ];

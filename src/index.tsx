@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { RecoilRoot } from "recoil";
+import { initializeFirebase } from "./firebase";
 
 const theme = createTheme({
   palette: {
@@ -13,6 +14,8 @@ const theme = createTheme({
     },
   },
 });
+
+initializeFirebase();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

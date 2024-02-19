@@ -7,7 +7,7 @@ import { draenor } from './draenor';
 import { brokenIsles } from './brokenIsles';
 import { argus } from './argus';
 import { kulTiras } from './kulTiras';
-import { zuldazar } from './zuldazar';
+import { zuldazar } from './zandalar';
 import { shadowlands } from './shadowlands';
 import { miscellaneous } from './miscellaneous';
 import { outland } from './outland';

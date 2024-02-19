@@ -1,5 +1,4 @@
 import React from "react";
-// import ReactTooltip from "react-tooltip";
 import { Icon, IconProps } from "./Icon";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -20,7 +19,6 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <>
-      {/* {tooltip && <ReactTooltip place="top" type="dark" effect="solid"/>} */}
       <button
         data-tip={tooltip}
         onClick={onClick}

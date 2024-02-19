@@ -1,13 +1,13 @@
-import React, { useMemo, useRef, useState } from 'react';
+import "../App.css";
+import React, { useRef, useState } from 'react';
 import ReactPlayer, {
   YouTubePlayerProps as ReactPlayerYouTubeProps,
 } from 'react-player/youtube';
 import { ReactPlayerProps } from 'react-player';
-import { Slider, SliderProps, css } from '@mui/material';
+import { css } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
-import debounce from 'lodash.debounce';
 import { useRecoilState } from 'recoil';
 import {
   currentQuestionState,
@@ -23,11 +23,11 @@ const reactPlayerStyle: ReactPlayerProps['style'] = {
 };
 
 const commonStyles = css`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 900px;
+  height: 600px;
   pointer-events: none;
 `;
 
@@ -37,7 +37,7 @@ const ReactPlayerContainer = styled('div')<{ hidden: boolean }>`
       ? css`
           pointer-events: none;
           user-select: none;
-          position: fixed;
+          
           top: 100%;
           left: 100%;
         `
@@ -45,13 +45,13 @@ const ReactPlayerContainer = styled('div')<{ hidden: boolean }>`
           display: flex;
           align-items: center;
           justify-content: center;
-          position: fixed;
+          
           top: 64px;
           left: 0;
           right: 0;
           bottom: 0;
           z-index: -1;
-          background: black;
+          background: white;
         `}
 
   iframe {
@@ -59,49 +59,21 @@ const ReactPlayerContainer = styled('div')<{ hidden: boolean }>`
   }
 `;
 
-const VolumeSlider = styled(Slider)`
-  color: white;
-  width: 100%;
-  margin-top: 0;
-
-  @media (min-width: 500px) {
-    width: 400px;
-    margin-top: 12px;
-  }
-
-  h1 {
-    filter: none;
-  }
-`;
-
 const InnerContainer = styled('div')`
   ${commonStyles}
   overflow: hidden;
-  display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
 
-  @media (min-aspect-ratio: 16/9) {
-    height: 300%;
-    top: -100%;
-  }
-  @media (max-aspect-ratio: 16/9) {
-    width: 300%;
-    left: -100%;
-  }
-
-  @media (max-width: 500px) {
-    width: 400%;
-    left: -150%;
-  }
 `;
 
 const MediaContainerBase = styled('div')`
   z-index: 6;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  position: relative;
+  align-items: center;
 
   button {
     margin-bottom: 25px;
@@ -118,9 +90,12 @@ const MediaContainerBase = styled('div')`
 `;
 
 const MediaControlContainer = styled(MediaContainerBase)`
-  /* @media (max-width: 500px) {
-    width: 10%;
-  } */
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+
 `;
 
 
@@ -133,15 +108,12 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
 
   // Local State
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(1);
   const [totalTime, setTotalTime] = useState<number | undefined>(0);
   const [currentTime, setCurrentTime] = useState<number | undefined>(0);
-
   const reactPlayerRef = useRef<ReactPlayer>(null);
 
-  soundtrackIndex = currentQuestion.answer
+  soundtrackIndex = currentQuestion.answerIndex
   const currentAmbiance = worldOfWarcraft[soundtrackIndex];
-
 
   const handleRestart = () => {
     reactPlayerRef.current?.seekTo(currentAmbiance.startTimeS || 1, 'seconds');
@@ -157,16 +129,6 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
     reactPlayerRef.current?.seekTo(nextTime, 'seconds');
   };
 
-  const debounceVolumeHandler = useMemo(() => {
-    const handleVolume: NonNullable<SliderProps['onChange']> = (_event, value) => {
-      const newVolume = Array.isArray(value) ? value[0] : value;
-      console.log(newVolume);
-      setVolume(newVolume);
-    };
-
-    return debounce(handleVolume, 100);
-  }, [setVolume]);
-
   const handleOnProgress: ReactPlayerYouTubeProps['onProgress'] = (data: any) => {
     setCurrentTime(data.playedSeconds);
   };
@@ -179,58 +141,6 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
 
   return (
     <>
-      <>
-        <MediaControlContainer>
-          <Button
-            icon={isPlaying ? 'pause' : 'play'}
-            tooltip={isPlaying ? 'pause' : 'play'}
-            onClick={logEventClickWrapper({
-              eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
-              onClick: () => setIsPlaying(!isPlaying),
-            })}
-          />
-
-          {!currentAmbiance.livestream && (
-            <>
-              <Button
-                icon="fastForward"
-                tooltip="Fast Forward 10m"
-                onClick={logEventClickWrapper({
-                  eventData: { ...logData, actionId: 'fastForward' },
-                  onClick: handleFastForward,
-                })}
-              />
-              <Button
-                icon="restart"
-                tooltip="Restart"
-                onClick={logEventClickWrapper({
-                  eventData: { ...logData, actionId: 'restart' },
-                  onClick: handleRestart,
-                })}
-              />
-            </>
-          )}
-        </MediaControlContainer>
-        <MediaContainerBase>
-          <VolumeSlider
-            defaultValue={1}
-            aria-label="Volume"
-            onChange={debounceVolumeHandler}
-            valueLabelDisplay="off"
-            step={0.02}
-            marks
-            min={0}
-            max={1}
-          />
-        </MediaContainerBase>
-        <MediaContainerBase>
-          <span style={{ color: 'white', fontSize: '20px' }}>
-            {!!currentTime &&
-              new Date(currentTime * 1000).toISOString().substr(11, 8)}{' '}
-            / {!!totalTime && new Date(totalTime * 1000).toISOString().substr(11, 8)}
-          </span>
-        </MediaContainerBase>
-      </>
       <ReactPlayerContainer hidden={!videoShown}>
         <InnerContainer>
           <ReactPlayer
@@ -238,9 +148,8 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
             playing={isPlaying}
             url={url}
             style={reactPlayerStyle}
-            width="100vw"
-            height="200vw"
-            volume={volume}
+            width='900'
+            height='600'
             config={{
               playerVars: {
                 modestbranding: true,
@@ -260,6 +169,50 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
           />
         </InnerContainer>
       </ReactPlayerContainer>
+
+      <MediaControlContainer>
+        <Button
+          className="youtube-control-button"
+          icon={isPlaying ? 'pause' : 'play'}
+          tooltip={isPlaying ? 'pause' : 'play'}
+          onClick={logEventClickWrapper({
+            eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
+            onClick: () => setIsPlaying(!isPlaying),
+          })}
+        />
+        {!currentAmbiance.livestream && (
+          <>
+            <Button
+              className="youtube-control-button"
+              icon="fastForward"
+              tooltip="Fast Forward 10m"
+              onClick={logEventClickWrapper({
+                eventData: { ...logData, actionId: 'fastForward' },
+                onClick: handleFastForward,
+              })}
+            />
+            <Button
+              className="youtube-control-button"
+              icon="restart"
+              tooltip="Restart"
+              onClick={logEventClickWrapper({
+                eventData: { ...logData, actionId: 'restart' },
+                onClick: handleRestart,
+              })}
+            />
+          </>
+        )}
+
+        <MediaContainerBase>
+          <span style={{ color: 'black', fontSize: '20px' }}>
+            {!!currentTime &&
+              new Date(currentTime * 1000).toISOString().substr(11, 8)}{' '}
+            / {!!totalTime && new Date(totalTime * 1000).toISOString().substr(11, 8)}
+          </span>
+        </MediaContainerBase>
+
+      </MediaControlContainer>
+
     </>
   );
 };
