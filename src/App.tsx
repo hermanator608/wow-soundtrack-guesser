@@ -100,45 +100,44 @@ function App() {
       ? result===true
         ?<h3>Correct!</h3>
         :<h3>Incorrect!</h3>
-      :<div className="map-area">
-        <div className="presenter">
-          <div className="photo">
-              <ImageMapper {...imageMapperProps} />
-              {!gameStarted
-                ?<StartGame />
-                :<></> 
-              }
-              <IconButton 
-                className="back-button"
-                size="medium" 
-                sx={{position:"absolute", backgroundColor: "white"}}
-                disabled={!!videoShown || world.peek() === AllWorlds} 
-                onClick={() => { removeMap(); }} 
-              > 
-              <UndoIcon />
-              </IconButton>
-              <Typography
-                variant="h6"
-                className="you-text"             
-                sx={{
-                  mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'white',
-                  textDecoration: 'none',
-                }} 
-              >
-              {hoverArea}
-              </Typography>
-          </div>
+
+      :  <div className="photo">
+            <ImageMapper {...imageMapperProps} />
+            {!gameStarted
+              ?<StartGame />
+              :<></> 
+            }
+            <IconButton 
+              className="back-button"
+              size="medium" 
+              sx={{position:"absolute", backgroundColor: "white"}}
+              disabled={!!videoShown || world.peek() === AllWorlds} 
+              onClick={() => { removeMap(); }} 
+            > 
+            <UndoIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              className="zone-text"             
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'white',
+                textDecoration: 'none',
+              }} 
+            >
+            {hoverArea}
+            </Typography>
         </div>
-      </div>
       }
 
-      <YoutubePlayer />
-
+      <div className="youtube-player-parent">
+        <YoutubePlayer />
+      </div>
+      
     </div>
   );
 }
