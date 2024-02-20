@@ -90,3 +90,22 @@
 .youtube-control-button:hover{
   cursor: pointer;
 }
+
+.game-started{
+  top: 0%;
+  left: 0%;
+  z-index: 2;
+  position: absolute;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.instructions{
+  z-index: 1;
+  padding-top: 40px;
+  color: white;
+}
+
+.start-button{
+  top: 60%;
+  z-index: 1;
+}

@@ -26,3 +26,14 @@ export const currentQuestionState = atom({
   key: "currentQuestion",
   default: getNextQuestion(),
 });
+
+export const gameStartedState = atom({
+  key:"gameStarted",
+  default: false,
+});
+
+export const isPlayingState = atom({
+  key:"isPlaying",
+  default: false,
+});
+

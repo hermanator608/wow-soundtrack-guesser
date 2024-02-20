@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon, IconProps } from "./Icon";
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   text?: string
   tooltip?: string
   icon?: IconProps['icon']
@@ -15,7 +15,8 @@ export const Button: React.FC<ButtonProps> = ({
   tooltip,
   icon,
   text,
-  highlighted
+  highlighted,
+  disabled
 }) => {
   return (
     <>
@@ -32,6 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
         }}
         className={className}
         title={tooltip}
+        disabled={disabled}
       >
         {icon && <Icon icon={icon} />}
         {text && <span style={{ marginLeft: 8 }}>{text}</span>}

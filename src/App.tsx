@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Header from "./components/Header";
 import "./App.css";
 import { YoutubePlayer } from "./components/YoutubePlayer";
+import StartGame from "./components/StartGame";
 import { useRecoilState } from "recoil";
 import {
   currentQuestionState,
   getNextQuestion,
-  videoShownState
+  videoShownState,
+  gameStartedState
 } from "./state";
 import Typography from "@mui/material/Typography";
 import UndoIcon from '@mui/icons-material/Undo';
@@ -23,6 +25,7 @@ function App() {
   const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
   const [result, setResult] = useState<Boolean>();
+  const [gameStarted, ] = useRecoilState(gameStartedState);
 
    let imageMapperProps: ImageMapperProps = {
      src: world.peek().img,
@@ -100,32 +103,35 @@ function App() {
       :<div className="map-area">
         <div className="presenter">
           <div className="photo">
-            <ImageMapper {...imageMapperProps} />
-            <IconButton 
-              className="back-button"
-              size="medium" 
-              sx={{position:"absolute", backgroundColor: "white"}}
-              disabled={!!videoShown || world.peek() === AllWorlds} 
-              onClick={() => { removeMap(); }} 
-            > 
-            <UndoIcon />
-            </IconButton>
-
-            <Typography
-              variant="h6"
-              className="you-text"             
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'white',
-                textDecoration: 'none',
-              }} 
-            >
-            {hoverArea}
-            </Typography>
+              <ImageMapper {...imageMapperProps} />
+              {!gameStarted
+                ?<StartGame />
+                :<></> 
+              }
+              <IconButton 
+                className="back-button"
+                size="medium" 
+                sx={{position:"absolute", backgroundColor: "white"}}
+                disabled={!!videoShown || world.peek() === AllWorlds} 
+                onClick={() => { removeMap(); }} 
+              > 
+              <UndoIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                className="you-text"             
+                sx={{
+                  mr: 2,
+                  display: { xs: 'none', md: 'flex' },
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'white',
+                  textDecoration: 'none',
+                }} 
+              >
+              {hoverArea}
+              </Typography>
           </div>
         </div>
       </div>
