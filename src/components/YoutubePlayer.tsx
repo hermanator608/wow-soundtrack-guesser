@@ -178,7 +178,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
         <Button
           className="youtube-control-button"
           icon={isPlaying ? 'pause' : 'play'}
-          tooltip={isPlaying ? 'pause' : 'play'}
+          tooltip={isPlaying ? 'Pause' : 'Play'}
           disabled={!gameStarted}
           onClick={logEventClickWrapper({
             eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
@@ -190,7 +190,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
             <Button
               className="youtube-control-button"
               icon="fastForward"
-              tooltip="Fast Forward 10m"
+              tooltip="Fast forward"
               disabled={!gameStarted}
               onClick={logEventClickWrapper({
                 eventData: { ...logData, actionId: 'fastForward' },
