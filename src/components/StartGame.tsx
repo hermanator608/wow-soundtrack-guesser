@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -8,8 +8,8 @@ import { gameStartedState, isPlayingState } from "../state";
 
 
 function StartGame(){
-  const [, setGameStarted] = useRecoilState(gameStartedState);
-  const [, setIsPlaying] = useRecoilState(isPlayingState);
+  const setGameStarted = useSetRecoilState(gameStartedState);
+  const setIsPlaying = useSetRecoilState(isPlayingState);
 
   return (
     <Box 

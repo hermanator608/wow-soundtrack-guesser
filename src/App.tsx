@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import "./App.css";
 import { YoutubePlayer } from "./components/YoutubePlayer";
 import StartGame from "./components/StartGame";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   currentQuestionState,
   getNextQuestion,
@@ -27,11 +27,11 @@ function App() {
   const [videoShown, setVideoShown] = useRecoilState(videoShownState);
   const [world, setWorld] = useState<Stack<MapDetails>>(new Stack<MapDetails>(5, AllWorlds));
   const [hoverArea, setHoverArea] = useState<String>();
-  const [result, setResult] = useState<String>();
-  const [answer, setAnswer] = useState<String>("");
-  const [gameStarted, ] = useRecoilState(gameStartedState);
+  const [result, setResult] = useState<Boolean>();
+  const [answer, setAnswer] = useState<String|undefined>();
+  const gameStarted = useRecoilValue(gameStartedState);
   const [showAlert, setShowAlert] = useState<Boolean>(false);
-  const [choice, setChoice] = useState<String>("");
+  const [choice, setChoice] = useState<String|undefined>();
 
    let imageMapperProps: ImageMapperProps = {
      src: world.peek().img,
@@ -83,7 +83,8 @@ function App() {
     setShowAlert(false);
     setWorld(new Stack<MapDetails>(5, AllWorlds));
     setVideoShown(true);
-    displayFeedback(choice === currentQuestion.answerName, currentQuestion.answerName);
+    setResult(choice === currentQuestion.answerName);
+    setAnswer(currentQuestion.answerName);
 
     setTimeout(() => {
         setResult(undefined);
@@ -93,15 +94,7 @@ function App() {
     }, 10000);
   
   }
-
-  const displayFeedback = (result: Boolean, answer: String) => {
-    if (result) {
-      setResult("Correct");
-    } else {
-      setResult("Incorrect");
-    }
-    setAnswer(answer);
-  }
+  
 
   const enterArea = (area: MapAreas) => {
     setHoverArea(area.id);
@@ -116,27 +109,24 @@ function App() {
       <Header />
       {(videoShown === true)
       ? <Typography 
-        variant="h6"
-        sx={{
-          fontFamily: 'monospace',
-          padding: 2
-        }}
-      >
-      {result}: {answer}
-      </Typography>
+          variant="h6"
+          sx={{fontFamily: 'monospace', padding: 2}}
+        >
+          {result 
+          ? <span>Correct: {answer}</span>
+          : <span>Incorrect: {answer}</span>
+          }
+        </Typography>
 
-      :  <div className="photo">
+      : <div className="photo">
             <ImageMapper {...imageMapperProps} />
-            {!gameStarted
-              ?<StartGame />
-              :<></> 
-            }
+            {!gameStarted && <StartGame/>}
             <IconButton 
               className="back-button"
               size="medium" 
               sx={{position:"absolute", backgroundColor: "white"}}
               disabled={!!videoShown || world.peek() === AllWorlds} 
-              onClick={() => { removeMap(); }}
+              onClick={removeMap}
               title="Back one map" 
             > 
             <UndoIcon />
@@ -148,8 +138,8 @@ function App() {
                 severity="warning"
                 action={
                   <ButtonGroup>
-                    <Button color="inherit" size="small" onClick={() => {evaluateChoice();}}>YES</Button>
-                    <Button color="inherit" size="small" onClick={() => {removeAlert();}}>NO</Button>
+                    <Button color="inherit" size="small" onClick={evaluateChoice}>YES</Button>
+                    <Button color="inherit" size="small" onClick={removeAlert}>NO</Button>
                   </ButtonGroup>
                 }
               >

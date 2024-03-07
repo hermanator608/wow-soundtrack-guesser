@@ -8,7 +8,7 @@ import { css } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentQuestionState,
   videoShownState,
@@ -108,7 +108,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   const [videoShown] = useRecoilState(videoShownState);
   const [currentQuestion] = useRecoilState(currentQuestionState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-  const [gameStarted, ] = useRecoilState(gameStartedState);
+  const gameStarted = useRecoilValue(gameStartedState);
 
   // Local State
   const [totalTime, setTotalTime] = useState<number | undefined>(0);
