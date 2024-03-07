@@ -8,10 +8,12 @@ import { css } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Button from './Button';
 import { logEventClickWrapper } from '../utils/logEventClickWrapper';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentQuestionState,
   videoShownState,
+  isPlayingState,
+  gameStartedState
 } from '../state';
 import { worldOfWarcraft } from '../config';
 
@@ -105,9 +107,10 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   // Global State
   const [videoShown] = useRecoilState(videoShownState);
   const [currentQuestion] = useRecoilState(currentQuestionState);
+  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const gameStarted = useRecoilValue(gameStartedState);
 
   // Local State
-  const [isPlaying, setIsPlaying] = useState(true);
   const [totalTime, setTotalTime] = useState<number | undefined>(0);
   const [currentTime, setCurrentTime] = useState<number | undefined>(0);
   const reactPlayerRef = useRef<ReactPlayer>(null);
@@ -115,6 +118,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
   soundtrackIndex = currentQuestion.answerIndex
   const currentAmbiance = worldOfWarcraft[soundtrackIndex];
 
+  
   const handleRestart = () => {
     reactPlayerRef.current?.seekTo(currentAmbiance.startTimeS || 1, 'seconds');
   };
@@ -174,7 +178,8 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
         <Button
           className="youtube-control-button"
           icon={isPlaying ? 'pause' : 'play'}
-          tooltip={isPlaying ? 'pause' : 'play'}
+          tooltip={isPlaying ? 'Pause' : 'Play'}
+          disabled={!gameStarted}
           onClick={logEventClickWrapper({
             eventData: { ...logData, actionId: isPlaying ? 'pause' : 'play' },
             onClick: () => setIsPlaying(!isPlaying),
@@ -185,7 +190,8 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
             <Button
               className="youtube-control-button"
               icon="fastForward"
-              tooltip="Fast Forward 10m"
+              tooltip="Fast forward"
+              disabled={!gameStarted}
               onClick={logEventClickWrapper({
                 eventData: { ...logData, actionId: 'fastForward' },
                 onClick: handleFastForward,
@@ -195,6 +201,7 @@ export const YoutubePlayer: React.FC<{soundtrackIndex?: number}> = ({
               className="youtube-control-button"
               icon="restart"
               tooltip="Restart"
+              disabled={!gameStarted}
               onClick={logEventClickWrapper({
                 eventData: { ...logData, actionId: 'restart' },
                 onClick: handleRestart,

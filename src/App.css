@@ -22,7 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  
+
 }
 
 .App-link {
@@ -33,34 +33,23 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.map-area {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.presenter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 9999;
-}
-
 .photo {
   position: relative;
+  margin: 0 auto;
+  width: 900px;
 }
 
-.photo:hover{
+.photo:hover {
   cursor: pointer;
 }
 
-.map-controls{
+.map-controls {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -70,23 +59,60 @@
   padding: 10px;
 }
 
-.back-button{
+.back-button {
   position: absolute;
   top: 1%;
   right: 1%;
   z-index: 1;
-  
-} 
+}
 
-.you-text{
+.zone-text {
   position: absolute;
   top: 95%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
 }
 
-.youtube-control-button:hover{
+.alert-parent{
+  position: absolute;
+  top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1;
+}
+
+.youtube-control-button:hover {
   cursor: pointer;
+}
+
+.game-started {
+  top: 0%;
+  z-index: 2;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.instructions {
+  z-index: 1;
+  padding-top: 40px;
+  color: white;
+}
+
+.start-button {
+  top: 60%;
+  z-index: 1;
+}
+
+.youtube-player-parent{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
